@@ -27,7 +27,9 @@ makeWithParams(){
 sudoMakeWithParams(){
   make -j"${JOBS}" "$@" || \
     sudo env N64_INST="$N64_INST" \
-      make -j"${JOBS}" "$@"
+      make -j"${JOBS}" "$@" || \
+        su -c 'env N64_INST="$N64_INST"
+            make -j"${JOBS}" "$@"'
 }
 
 # Limit the number of make jobs to the number of CPUs
